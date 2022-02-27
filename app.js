@@ -14,12 +14,12 @@ const displaySearchMeals = meals => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     meals.forEach(meal => {
-        console.log(meal);
+
         const div = document.createElement('div');
         div.classList.add('col');
         div.classList.add('mb-3');
         div.innerHTML = `
-        <div class="card h-100">
+        <div onclick="singleMealInfo('${meal.idMeal}')" class="card h-100">
         <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">${meal.strMeal}</h5>
@@ -31,4 +31,18 @@ const displaySearchMeals = meals => {
 
 
     });
+};
+
+
+
+const singleMealInfo = mealId => {
+    console.log(mealId);
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i= ${mealId}`)
+        .then(res => res.json())
+        .then(data => singleDisplayMeal(data.meals))
+}
+
+
+const singleDisplayMeal = meals => {
+    console.log(meals);
 }
