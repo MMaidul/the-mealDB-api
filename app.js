@@ -3,6 +3,9 @@ const loadMeal = () => {
     const inputText = inputField.value;
     inputField.value = '';
 
+    const singleSearchResult = document.getElementById('single-result');
+    singleSearchResult.innerText = '';
+
 
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`)
         .then(res => res.json())
@@ -42,22 +45,22 @@ const singleMealInfo = mealId => {
 }
 
 
-const singleDisplayMeal = meals => {
-    console.log(meals);
+const singleDisplayMeal = meal => {
+    console.log(meal);
     const singleSearchResult = document.getElementById('single-result');
+    singleSearchResult.innerText = '';
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
+            <img src="${meal.strMealThumb}" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit longer.</p>
-                <a href="" class="btn btn-success">Learn form tutorial</a>
+                <h5 class="card-title">${meal.strMeal}</h5>
+                <p class="card-text">${meal.strInstructions.slice(0, 250)}</p>
+                <a href="${meal.strYoutube}"  target="_blank" class="btn btn-success">Learn form tutorial</a>
             </div>
         </div>
     </div>
